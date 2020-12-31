@@ -15,3 +15,7 @@ Key Features:
 
 Music from: https://www.bensound.com
 
+Tasks remining:
+1. Testing
+2. Scoreboard
+
