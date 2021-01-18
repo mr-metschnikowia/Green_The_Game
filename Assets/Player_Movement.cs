@@ -7,30 +7,35 @@ public class Player_Movement : MonoBehaviour
 
     public Transform player;
 
-    Vector3 track_1 = new Vector3(-2.35f, 1f, -98.16975f);
-
-    Vector3 track_2 = new Vector3(-0.15932f, 1f, -98.16975f);
-
-    Vector3 track_3 = new Vector3(2.35f, 1f, -98.16975f);
-
     float SPEED = 0.15f;
-
-    Vector3 CurrentLane = new Vector3(-0.15932f, 1f, -98.16975f);
 
     bool moving = false;
 
     // defining core variables
 
+    float track_1 = -2.35f;
 
-    void Move(ref bool moving, Vector3 CurrentLane, float SPEED)
+    float track_2 = -0.15932f;
+
+    float track_3 = 2.35f;
+
+    // defining tracks 
+
+    float target_x = -0.15932f;
+
+    // defining target track
+
+    void Move(ref bool moving, float target_x, float SPEED)
     {
-        if (player.position == CurrentLane)
+        Vector3 target_track = new Vector3(target_x, player.position.y, player.position.z);
+        
+        if (player.position == target_track)
         {
             moving = false;
         }
         else
         {
-            player.position = Vector3.Lerp(player.position, CurrentLane, SPEED);
+            player.position = Vector3.Lerp(player.position, target_track, SPEED);
         }
     }
 
@@ -38,16 +43,17 @@ public class Player_Movement : MonoBehaviour
 
     void Update()
     {
-        
         if (player.position.y > 0)
         {
             // ensures player is in play area 
 
             if (Input.touchCount > 0)
             {
-                // first touch is tracked
+                // detects touches
 
                 Touch touch = Input.GetTouch(0);
+
+                // first touch is tracked
 
                 if (touch.phase == TouchPhase.Ended)
                 {
@@ -67,29 +73,29 @@ public class Player_Movement : MonoBehaviour
 
                     // position of swipe end recorded
 
-                    if (CurrentLane == track_2)
+                    if (target_x == track_2)
                     {
                         if (TouchX > PlayerX)
                         {
-                            CurrentLane = track_3;
+                            target_x = track_3;
                         }
                         else
                         {
-                            CurrentLane = track_1;
+                            target_x = track_1;
                         }
                     }
-                    else if (CurrentLane == track_3)
+                    else if (target_x == track_3)
                     {
                         if (TouchX < PlayerX)
                         {
-                            CurrentLane = track_2;
+                            target_x = track_2;
                         }
                     }
                     else
                     {
                         if (TouchX > PlayerX)
                         {
-                            CurrentLane = track_2;
+                            target_x = track_2;
                         }
                     }
 
@@ -100,25 +106,25 @@ public class Player_Movement : MonoBehaviour
 
             if (moving == true)
             {
-                Move(ref moving, CurrentLane, SPEED);
+                Move(ref moving, target_x, SPEED);
             }
 
             // player is incrementaly moved to target until destination is reached
 
             // Touchscreen movement
 
-            if (Input.GetKey("a"))
-            {
-                player.position = Vector3.Lerp(player.position, track_1, SPEED);
-            }
-            else if (Input.GetKey("s"))
-            {
-                player.position = Vector3.Lerp(player.position, track_2, SPEED);
-            }
-            else if (Input.GetKey("d"))
-            {
-                player.position = Vector3.Lerp(player.position, track_3, SPEED);
-            }
+            // if (Input.GetKey("a"))
+            // {
+                // player.position = Vector3.Lerp(player.position, track_1, SPEED);
+            // }
+            // else if (Input.GetKey("s"))
+            // {
+                // player.position = Vector3.Lerp(player.position, track_2, SPEED);
+            // }
+            // else if (Input.GetKey("d"))
+            // {
+                // player.position = Vector3.Lerp(player.position, track_3, SPEED);
+            // }
             // Keyboard movement
         }
 
