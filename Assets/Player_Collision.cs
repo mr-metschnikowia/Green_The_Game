@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class Player_Collision : MonoBehaviour
 {
-    string smiley = ":)))))))))))))))))";
 
 }
