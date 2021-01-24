@@ -23,6 +23,10 @@ public class FinalTime : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighScore", FinalTimeInt);
 
+            Social.ReportScore(PlayerPrefs.GetInt("HighScore", 1), GPGSIds.leaderboard_high_score, null);
+
+            // Sends high score to GPGS leaderboard
+
             StartCoroutine(FlashText());
         }
         // If player beats old high score, the new high score is stored and a congratulatory message appears (using FlashText coroutine function)    
@@ -41,4 +45,4 @@ public class FinalTime : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
-}   // Coroutine function (function carried on in chunks) facilitates flashing of text
+}   // Coroutine function (function carried out in chunks) facilitates flashing of text

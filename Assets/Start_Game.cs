@@ -16,6 +16,15 @@ public class Start_Game : MonoBehaviour
 
    // publicly creating prefab gameobject
 
+   public Transform player;
+
+    // player GameObject assigned value of player avatar
+
+    Vector3 InstructionsPlayerLocation = new Vector3(-0.15932f, 1f, -95.86f);
+
+    Vector3 MainPlayerLocation = new Vector3(-0.15932f, 1f, -98.29f);
+
+    // Defining possible locations of player avatar across menus
 
    void ChangeMenu (GameObject[] ToDestroy, GameObject[] ToCreate)
    {
@@ -50,7 +59,11 @@ public class Start_Game : MonoBehaviour
 
         ChangeMenu(InstructionsMenuFeatures, StartMenuFeatures);
 
-        // Switches to settings menu by deactiviting settings menu features and activating main menu features
+        // Switches to main menu by deactiviting settings + instructions menu features and activating main menu features
+
+        player.position = MainPlayerLocation;
+
+        // player is moved to appropriate position
 
         try
         {
@@ -87,7 +100,18 @@ public class Start_Game : MonoBehaviour
         // Spawning DummyPrefab prefab at SpawnPoint
 
         ChangeMenu(StartMenuFeatures, InstructionsMenuFeatures);
+
+        player.position = InstructionsPlayerLocation;
+
+        // player is moved to appropriate location
     }
 
     // To instructions menu
+
+    public void ShowLeaderboard()
+    {
+        Social.ShowLeaderboardUI();
+    }
+
+    // Brings up GPGS leaderboard UI
 }
