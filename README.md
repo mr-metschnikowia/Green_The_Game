@@ -13,13 +13,14 @@ Key Features:
 4. Physics powered by the Unity physics engine!
 5. Simplistic yet endearing art style!
 6. Mellow tunes from: https://www.bensound.com
-7. Google Play Services integration.
+7. Google Play Services integration - Online leaderboard.
 
 Tasks remining:
-1. Online leaderboard
-2. UI
-3. Form factor + obstacle spawning 
-3. More build testing 
+1. Fog
+2. Form factor
+3. More build testing
+4. Preparation for publishing
+5. Publish 
 
 Acknowledgements:
 Settings icon made by Freepik from www.flaticon.com
