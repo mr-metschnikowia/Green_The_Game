@@ -20,3 +20,6 @@ Tasks remining:
 2. UI
 3. Form factor + obstacle spawning 
 3. More build testing 
+
+Acknowledgements:
+Settings icon made by Freepik from www.flaticon.com
