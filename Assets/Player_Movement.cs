@@ -28,7 +28,7 @@ public class Player_Movement : MonoBehaviour
     void Move(ref bool moving, float target_x, float SPEED)
     {
         Vector3 target_track = new Vector3(target_x, player.position.y, player.position.z);
-        
+
         if (player.position == target_track)
         {
             moving = false;
@@ -115,15 +115,15 @@ public class Player_Movement : MonoBehaviour
 
             // if (Input.GetKey("a"))
             // {
-                // player.position = Vector3.Lerp(player.position, track_1, SPEED);
+            // player.position = Vector3.Lerp(player.position, track_1, SPEED);
             // }
             // else if (Input.GetKey("s"))
             // {
-                // player.position = Vector3.Lerp(player.position, track_2, SPEED);
+            // player.position = Vector3.Lerp(player.position, track_2, SPEED);
             // }
             // else if (Input.GetKey("d"))
             // {
-                // player.position = Vector3.Lerp(player.position, track_3, SPEED);
+            // player.position = Vector3.Lerp(player.position, track_3, SPEED);
             // }
             // Keyboard movement
         }
@@ -132,6 +132,6 @@ public class Player_Movement : MonoBehaviour
         {
             FindObjectOfType<GameManager>().EndGame();
         }
-       // If player falls off platform EndGame function from GameManager script is activated
+        // If player falls off platform EndGame function from GameManager script is activated
     }
 }
