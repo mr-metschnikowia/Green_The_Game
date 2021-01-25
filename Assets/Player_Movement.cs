@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+// Touchscreen movement
 
 public class Player_Movement : MonoBehaviour
 {
@@ -41,6 +44,14 @@ public class Player_Movement : MonoBehaviour
 
     // method moves player base on input variables and detects when destination has been reached
 
+    private float GlobalStartTouchX;
+
+    // global x value of touch start
+
+    private Vector3 GlobalEndTouch;
+
+    // global value of touch end
+
     void Update()
     {
         if (player.position.y > 0)
@@ -55,53 +66,73 @@ public class Player_Movement : MonoBehaviour
 
                 // first touch is tracked
 
+                if (touch.phase == TouchPhase.Began)
+                {
+                    GlobalStartTouchX = touch.position.x;
+                }
+
+                // Get unconverted x value of touch start
+
                 if (touch.phase == TouchPhase.Ended)
                 {
-                    // condition satisifed when finger is remove from screen 
+                    // condition satisifed when finger is removed from screen  - movement can only occur after this point 
 
-                    moving = true;
+                    Vector3 EndTouch = touch.position;
 
-                    Vector3 TouchPosition = touch.position;
+                    EndTouch.z = 10;
 
-                    TouchPosition.z = 10;
+                    GlobalEndTouch = EndTouch;
 
-                    Vector3 ConvertedTouchPosition = Camera.main.ScreenToWorldPoint(TouchPosition);
+                    // grab unconverted position of touch end
 
-                    float PlayerX = player.position.x;
+                    float EndTouchX = GlobalEndTouch.x;
 
-                    float TouchX = ConvertedTouchPosition.x;
+                    // grab unconverted x value of end touch
 
-                    // position of swipe end recorded
-
-                    if (target_x == track_2)
+                    if (CheckSwipe(EndTouchX, GlobalStartTouchX) == true)
+                    // Check if swipe is valid 
                     {
-                        if (TouchX > PlayerX)
+                        moving = true;
+
+                        Vector3 ConvertedTouchPosition = Camera.main.ScreenToWorldPoint(GlobalEndTouch);
+
+                        float PlayerX = player.position.x;
+
+                        float TouchX = ConvertedTouchPosition.x;
+
+                        // position of swipe end converted 
+
+                        if (target_x == track_2)
                         {
-                            target_x = track_3;
+                            if (TouchX > PlayerX)
+                            {
+                                target_x = track_3;
+                            }
+                            else
+                            {
+                                target_x = track_1;
+                            }
+                        }
+                        else if (target_x == track_3)
+                        {
+                            if (TouchX < PlayerX)
+                            {
+                                target_x = track_2;
+                            }
                         }
                         else
                         {
-                            target_x = track_1;
+                            if (TouchX > PlayerX)
+                            {
+                                target_x = track_2;
+                            }
                         }
-                    }
-                    else if (target_x == track_3)
-                    {
-                        if (TouchX < PlayerX)
-                        {
-                            target_x = track_2;
-                        }
-                    }
-                    else
-                    {
-                        if (TouchX > PlayerX)
-                        {
-                            target_x = track_2;
-                        }
-                    }
 
-                    // target lane is identified based on relation of swipe end coordinates to player's current position 
-
+                        // target lane is identified based on relation of swipe end coordinates to player's current position 
+                    }
                 }
+                // Get vector 3 unconverted position of touch stop
+
             }
 
             if (moving == true)
@@ -110,28 +141,24 @@ public class Player_Movement : MonoBehaviour
             }
 
             // player is incrementaly moved to target until destination is reached
-
-            // Touchscreen movement
-
-            // if (Input.GetKey("a"))
-            // {
-            // player.position = Vector3.Lerp(player.position, track_1, SPEED);
-            // }
-            // else if (Input.GetKey("s"))
-            // {
-            // player.position = Vector3.Lerp(player.position, track_2, SPEED);
-            // }
-            // else if (Input.GetKey("d"))
-            // {
-            // player.position = Vector3.Lerp(player.position, track_3, SPEED);
-            // }
-            // Keyboard movement
         }
-
-        if (player.position.y < -1f)
+        else if (player.position.y < -1f)
         {
             FindObjectOfType<GameManager>().EndGame();
         }
+
         // If player falls off platform EndGame function from GameManager script is activated
     }
+
+    private bool CheckSwipe(float FinalX, float StartX)
+    {
+        if (Math.Abs(FinalX - StartX) > 100)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // Checks if swipe length exceeds threshold
 }
