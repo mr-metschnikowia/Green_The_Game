@@ -18,13 +18,15 @@ public class Player_Movement : MonoBehaviour
 
     float track_1 = -2.35f;
 
-    float track_2 = -0.15932f;
+    float track_2 = 0f;
 
     float track_3 = 2.35f;
 
     // defining tracks 
 
-    float target_x = -0.15932f;
+    // float target_x = -0.15932f;
+
+    float target_x = 0f;
 
     // defining target track
 

@@ -20,9 +20,9 @@ public class Start_Game : MonoBehaviour
 
     // player GameObject assigned value of player avatar
 
-    Vector3 InstructionsPlayerLocation = new Vector3(-0.15932f, 1f, -95.86f);
+    Vector3 InstructionsPlayerLocation = new Vector3(0f, 1f, -95.86f);
 
-    Vector3 MainPlayerLocation = new Vector3(-0.15932f, 1f, -98.29f);
+    Vector3 MainPlayerLocation = new Vector3(0f, 1f, -98.29f);
 
     // Defining possible locations of player avatar across menus
 
@@ -93,7 +93,7 @@ public class Start_Game : MonoBehaviour
 
     public void ToInstructionsMenu()
     {
-        Vector3 SpawnPoint = new Vector3(-0.20f, 0.77f, -89.81021f);
+        Vector3 SpawnPoint = new Vector3(0f, 0.77f, -89.81021f);
 
         Instantiate(DummyPrefab, SpawnPoint, Quaternion.identity);
 
